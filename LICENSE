@@ -1,6 +1,8 @@
 MIT License
 
-Copyright (c) 2026 Wang Xueke
+Copyright (c) 2026 Wang Xueke (王学科)
+Affiliation: Chang'an University (长安大学)
+Student ID: 2024129014
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +21,113 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+================================================================================
+                           THIRD-PARTY ATTRIBUTIONS
+================================================================================
+
+This Software integrates with, but does NOT include, the following third-party
+components. Users must obtain these components separately and comply with their
+respective licenses and copyrights:
+
+1. SHAW MODEL (Simultaneous Heat and Water)
+   ------------------------------------------------------------------------
+   Copyright: United States Department of Agriculture (USDA), Agricultural
+              Research Service (ARS)
+   Original Developer: Dr. Gerald N. Flerchinger
+   Institution: USDA-ARS Northwest Watershed Research Center, Boise, Idaho
+   Status: U.S. Government work (public domain in the United States)
+   Source: https://www.ars.usda.gov/pacific-west-area/boise-id/
+          northwest-watershed-research-center/docs/shaw-model/
+   Download: ftp://ftp.nwrc.ars.usda.gov/public/ShawModel/
+
+   The SHAW model is NOT included in this repository. Users must download
+   the model directly from the official USDA-ARS source. The SHAW model is
+   a U.S. Government work and is not subject to copyright protection in the
+   United States, but may be subject to copyright in other jurisdictions.
+
+2. ESMDA ALGORITHM (Ensemble Smoother with Multiple Data Assimilation)
+   ------------------------------------------------------------------------
+   Copyright: Alexandre A. Emerick and Albert C. Reynolds
+   Institution: The University of Tulsa, Petroleum Reservoir Exploitation
+                Projects
+   Original Publications:
+     - Emerick, A.A. and Reynolds, A.C. (2013). "Ensemble smoother with
+       multiple data assimilation." Computers & Geosciences, 55, 3-15.
+       DOI: 10.1016/j.cageo.2012.03.011
+     - Emerick, A.A. and Reynolds, A.C. (2012). "History matching time-lapse
+       seismic data using the ensemble Kalman smoother with multiple data
+       assimilation." Computational Geosciences, 16(3), 639-659.
+       DOI: 10.1007/s10596-012-9275-5
+
+   The ESMDA implementation in this Software is an independent Python
+   re-implementation based on the published mathematical formulations.
+   The original algorithm and its theoretical foundation remain the
+   intellectual property of Emerick and Reynolds.
+
+3. ILUES ALGORITHM (Iterative Local Updating Ensemble Smoother)
+   ------------------------------------------------------------------------
+   Copyright: Dr. Jiangjiang Zhang (张江江) and co-authors
+   Institution: Hohai University (河海大学), Yangtze Institute for Conservation
+                and Development, Nanjing, China
+   Original Publication:
+     - Zhang, J., Lin, G., Li, W., Zeng, L., and Wu, L. (2018). "An iterative
+       local updating ensemble smoother for estimation and uncertainty
+       assessment of hydrologic model parameters with multimodal distributions."
+       Water Resources Research, 54(3), 1716-1733.
+       DOI: 10.1002/2017WR021296
+   Preprint: arXiv:1611.04702 [stat.CO]
+   Contact: zhangjiangjiang@hhu.edu.cn
+
+   The ILUES implementation in this Software is an independent Python
+   re-implementation based on the published mathematical formulations.
+   The original algorithm and its theoretical foundation remain the
+   intellectual property of Dr. Jiangjiang Zhang and co-authors.
+
+================================================================================
+                          USAGE REQUIREMENTS & RESTRICTIONS
+================================================================================
+
+By using this Software, you agree to the following:
+
+1. ATTRIBUTION: You MUST cite the original authors of SHAW, ESMDA, and ILUES
+   in any publication, presentation, or report resulting from the use of this
+   Software. Failure to provide proper attribution constitutes a violation of
+   academic integrity and this license.
+
+2. NON-COMMERCIAL USE: This Software is provided for academic research and
+   educational purposes. Commercial use is permitted under the MIT License,
+   but users must ensure compliance with the licensing terms of all third-party
+   components, especially the SHAW model.
+
+3. NO COPYRIGHT CLAIMS: You MUST NOT register copyright, patent, or other
+   intellectual property rights over the SHAW model, ESMDA algorithm, or
+   ILUES algorithm. You MUST NOT claim authorship of these components.
+
+4. SHAW MODEL DISTRIBUTION: You MUST NOT redistribute the SHAW model source
+   code or executable without permission from USDA-ARS. Obtain the SHAW model
+   directly from the official USDA-ARS source.
+
+5. EDUCATIONAL USE ONLY: The ESMDA and ILUES algorithm implementations in this
+   Software are provided for educational and research purposes. Users should
+   refer to the original publications for the authoritative descriptions of
+   these algorithms.
+
+6. PYTHON DEPENDENCIES: This Software depends on third-party Python packages
+   (numpy, scipy, pandas, matplotlib, pyecharts, tqdm), each subject to their
+   own licenses. Users must comply with the terms of these licenses.
+
+================================================================================
+                                ACKNOWLEDGMENTS
+================================================================================
+
+The author gratefully acknowledges:
+- Dr. Gerald N. Flerchinger and USDA-ARS for developing and maintaining the
+  SHAW model.
+- Alexandre A. Emerick and Albert C. Reynolds for developing the ESMDA
+  algorithm.
+- Dr. Jiangjiang Zhang and co-authors for developing the ILUES algorithm.
+- The open-source Python community for the excellent scientific computing
+  ecosystem.
+
+================================================================================
