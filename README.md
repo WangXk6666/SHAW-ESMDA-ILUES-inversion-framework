@@ -2,9 +2,9 @@
 
 > **A Python-based parameter inversion framework integrating the SHAW model with ESMDA/ILUES data assimilation algorithms, featuring comprehensive visualization and evaluation tools.**
 >
-> **Author**: Wang Xueke (王学科)  
+> **Author**: Wang Xueke (汪学科)  
 > **Affiliation**: Chang'an University (长安大学)  
-> **Student ID**: 2024129014  
+> **Email**: WangXk6666@outlook.com  
 > **Date**: 2026-06-16
 
 ---
@@ -267,10 +267,9 @@ The author makes no representations about the suitability of this software for a
 
 ## 📬 Contact
 
-- **Author**: Wang Xueke (王学科)
+- **Author**: Wang Xueke (汪学科)
 - **Institution**: Chang'an University (长安大学)
-- **Student ID**: 2024129014
-- **Email**: [Your Email]
+- **Email**: WangXk6666@outlook.com
 - **GitHub**: [@WangXk6666](https://github.com/WangXk6666)
 
 For questions regarding:
