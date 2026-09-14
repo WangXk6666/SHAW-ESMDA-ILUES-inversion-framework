@@ -1,268 +1,351 @@
-# SHAW-ESMDA-ILUES Inversion Framework
+SHAW–ESMDA–ILUES Parameter Inversion Framework
 
-> **A Python-based parameter inversion framework integrating the SHAW model with ESMDA/ILUES data assimilation algorithms, featuring comprehensive visualization and evaluation tools.**
->
-> **Author**: Wang Xueke (汪学科)  
-> **Affiliation**: Chang'an University (长安大学)  
-> **Email**: WangXk6666@outlook.com  
-> **Date**: 2026-06-16
+A Python workflow for parameter estimation and uncertainty analysis that couples the Simultaneous Heat and Water (SHAW) model with ESMDA and ILUES.
 
----
+Author: Xueke Wang (汪学科)
+Affiliation: Chang'an University (长安大学)
+Email: WangXk6666@outlook.com
 
-## 📋 Table of Contents
+[!IMPORTANT]
+This repository provides integration, workflow, and post-processing code. The SHAW model and the ESMDA and ILUES methods and implementations are third-party works developed by their respective authors. The repository author does not claim ownership of these components. Their original copyright notices, licenses, and citation requirements must be retained. Cite the original publications listed in References when using this framework in research.
 
-- [Overview](#overview)
-- [Features](#features)
-- [Dependencies](#dependencies)
-- [Usage](#usage)
-- [Repository Structure](#repository-structure)
-- [Copyright & Attribution](#copyright--attribution)
-- [License](#license)
-- [Disclaimer](#disclaimer)
-- [Contact](#contact)
-- [References](#references)
+Table of Contents
 
----
+Overview
 
-## 🔬 Overview
+Features
 
-This repository provides a complete **parameter inversion framework** that couples the **SHAW (Simultaneous Heat and Water) model** with two state-of-the-art ensemble-based data assimilation algorithms: **ESMDA (Ensemble Smoother with Multiple Data Assimilation)** and **ILUES (Iterative Local Updating Ensemble Smoother)**.
+Requirements
 
-The framework is designed for hydrological and land-surface modeling applications, enabling efficient calibration of SHAW model parameters through ensemble-based Bayesian inversion. In addition to the core inversion pipeline, this repository includes a rich suite of **post-processing tools** for:
+Installation
 
-- Parameter joint distribution visualization
-- Parameter iteration trajectory plotting
-- Comprehensive result evaluation metrics
-- Publication-ready figure generation
+Quick Start
 
-> ⚠️ **Important Notice**: This framework is an **integration and extension work** developed by the author. The SHAW model, ESMDA algorithm, and ILUES algorithm are **NOT** developed by the author. Please refer to the [Copyright & Attribution](#copyright--attribution) section for detailed ownership information.
+Configuration
 
----
+Outputs
 
-## ✨ Features
+Repository Structure
 
-### Core Inversion Pipeline
-- **SHAW Model Interface**: Seamless coupling with the SHAW model for forward simulations
-- **ESMDA Integration**: Multiple data assimilation with adaptive inflation factors
-- **ILUES Integration**: Local ensemble updating for multimodal parameter distributions
-- **Ensemble Management**: Configurable ensemble size
+Citation
 
-### Visualization & Post-processing
-- 📊 **Joint Distribution Plots**: Parameter posterior joint probability distributions
-- 📈 **Iteration Trajectory Plots**: Parameter convergence over assimilation iterations
-- 🎯 **Evaluation Metrics**: RMSE, NSE, R²
-- 🗺️ **Spatial/Temporal Visualization**: Time-series and profile plotting capabilities
+Third-Party Software and Attribution
 
-### Additional Tools
-- Automated result aggregation and summary
-- Statistical analysis of ensemble spread
-- Sensitivity analysis utilities
-- Batch processing support
+License
 
----
+Disclaimer
 
-## 📦 Dependencies
+Contact
 
-This project requires the following Python packages:
+References
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `numpy` | ≥1.21 | Numerical computations |
-| `scipy` | ≥1.7 | Scientific computing, statistical distributions |
-| `pandas` | ≥1.3 | Data manipulation and analysis |
-| `matplotlib` | ≥3.4 | Static plotting and figure generation |
-| `pyecharts` | ≥1.9 | Interactive web-based visualizations |
-| `tqdm` | ≥4.62 | Progress bars for long-running processes |
+Overview
 
+This repository links the one-dimensional SHAW model to two ensemble-smoother algorithms:
 
-## 📝 Usage
+ESMDA (Ensemble Smoother with Multiple Data Assimilation; often written ES-MDA) repeatedly assimilates the same observations using inflated observation-error covariance.
 
-1. **下载压缩包*
-   下载压缩包后，保存到本地的项目文件之后进行解压
+ILUES (Iterative Local Updating Ensemble Smoother) updates a local ensemble for each sample and is designed for nonlinear inverse problems that may have multimodal parameter distributions.
 
-2. **配置环境**
-使用Python的IDE打开项目文件后，按照Requirements.txt配置环境
+The workflow supports prior-ensemble generation, batch SHAW simulations, iterative parameter updating, result aggregation, uncertainty summaries, and publication-oriented visualization. It was developed for SHAW parameter inversion using observations such as soil liquid water content and for evaluating posterior simulations of related state variables such as soil temperature.
 
-3. **程序运行**
-   打开SHAW/RUNTHIS.py设置相应的算法配置后即可运行，为了节省时间，本程序中仅设置集合大小为20，迭代次数为1次来检测程序
----
+Features
 
+Inversion workflow
 
+Interface for running SHAW 3.03 (SHAW303.EXE)
 
-## 📁 Repository Structure
+ESMDA and ILUES parameter-update workflows
 
-```
+Configurable ensemble size and number of assimilation iterations
+
+Batch execution and error handling for ensemble simulations
+
+Prior and posterior parameter management
+
+Post-processing
+
+Marginal and joint parameter-distribution plots
+
+Parameter trajectories across assimilation iterations
+
+Posterior quantiles and ensemble-spread summaries
+
+Time-series and soil-profile plots
+
+RMSE, Nash–Sutcliffe efficiency (NSE), and coefficient of determination (R²)
+
+Requirements
+
+System requirements
+
+Python 3
+
+A local copy of SHAW 3.03 obtained from the official USDA-ARS website
+
+An operating system capable of running SHAW303.EXE
+
+The current workflow calls a Windows executable. Native Linux execution has not been documented for this repository.
+
+Python dependencies
+
+Install the exact dependency set from requirements.txt. The principal packages are:
+
+Package
+
+Minimum version
+
+Purpose
+
+numpy
+
+1.21
+
+Numerical computation
+
+scipy
+
+1.7
+
+Scientific computing and probability distributions
+
+pandas
+
+1.3
+
+Tabular data processing
+
+matplotlib
+
+3.4
+
+Static visualization
+
+pyecharts
+
+1.9
+
+Interactive visualization
+
+tqdm
+
+4.62
+
+Progress reporting
+
+Installation
+
+Clone the repository:
+
+git clone https://github.com/WangXk6666/SHAW-ESMDA-ILUES-inversion-framework.git
+cd SHAW-ESMDA-ILUES-inversion-framework
+
+Create and activate a virtual environment. On Windows PowerShell:
+
+py -m venv .venv
+.venv\Scripts\Activate.ps1
+
+Install the dependencies:
+
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+
+Download SHAW 3.03 from the official USDA-ARS SHAW page. Place the executable and the required SHAW input files in the model directory expected by SHAW/SHAW_exe.py.
+
+[!NOTE]
+SHAW is not installed through pip. Its executable, documentation, sample inputs, and any applicable notices must be obtained separately from USDA-ARS.
+
+Quick Start
+
+Prepare the SHAW configuration, meteorological forcing, boundary conditions, observations, and prior parameter samples under TEST_SHAW/Model/.
+
+Open SHAW/RUNTHIS.py and check all paths and algorithm settings.
+
+Run the workflow from the repository root:
+
+python SHAW/RUNTHIS.py
+
+Review numerical outputs in TEST_SHAW/Ensemble/ and figures in TEST_SHAW/Figures/.
+
+The example configuration uses an ensemble size of 20 and one assimilation iteration to provide a quick smoke test.
+
+[!WARNING]
+The demonstration settings are intentionally small and are not sufficient for scientific inference. Convergence, ensemble size, observation-error assumptions, prior ranges, and posterior stability must be evaluated for each application.
+
+Configuration
+
+Before starting an inversion, verify the following items in SHAW/RUNTHIS.py and the associated input files:
+
+algorithm selection: ESMDA or ILUES;
+
+ensemble size and number of assimilation iterations;
+
+inflation factors and observation-error settings;
+
+parameter names, bounds, transformations, and mappings to SHAW inputs;
+
+observation variables, depths, times, units, and missing-value handling;
+
+paths to the SHAW executable, model inputs, and output directories; and
+
+consistency between the SHAW simulation period and the observation period.
+
+Keep an untouched copy of the original SHAW input files. The workflow rewrites model inputs for individual ensemble members during execution.
+
+Outputs
+
+The workflow produces iteration-specific ensemble files, posterior summaries, and diagnostic figures. Common outputs include:
+
+Output
+
+Description
+
+ensemble_*_X_K_f_moi.csv
+
+Simulated liquid-water-content ensemble after an update
+
+ensemble_*_X_K_f_temp.csv
+
+Simulated soil-temperature ensemble used for independent evaluation
+
+Quantile_moi.csv
+
+Posterior quantiles for liquid water content
+
+Quantile_temp.csv
+
+Posterior quantiles for soil temperature
+
+PlotIterationPar.py
+
+Parameter-trajectory visualization
+
+Distribution.py
+
+Marginal or joint parameter-distribution visualization
+
+PlotResult.py
+
+Simulation-result and uncertainty visualization
+
+Output names may include the assimilation iteration or algorithm identifier. Inspect the scripts before changing filenames because downstream post-processing routines may rely on the existing naming convention.
+
+Repository Structure
+
 SHAW-ESMDA-ILUES-inversion-framework/
 ├── General/
-│   ├── __init__.py             
-│   ├── CriticalError.py       # ESMDA implementation
-│   ├── draw_prior_sample.py   # Default is reading the prior sample.csv in Model direction
-│   ├── ES_K_update.py         # ESMDA implementation
-│   ├── local_update_for.py    # ILUES implementation
-│   └── obs_read.py            # Reading observation data in Model direction
+│   ├── __init__.py
+│   ├── CriticalError.py        # Custom exception definitions
+│   ├── draw_prior_sample.py    # Prior-ensemble generation or import
+│   ├── ES_K_update.py          # Ensemble-smoother parameter update
+│   ├── local_update_for.py     # ILUES local-update routine
+│   └── obs_read.py             # Observation-data reader
 ├── SHAW/
 │   ├── __init__.py
-│   ├── Clear.py               # Clearing work direction
-│   ├── Error_SHAW.py          # Handling the error in Model execution 
-│   ├── MAINPROGRESS.py        # Main workflow
-│   ├── P.py                   # 参数映射
-│   ├── RUNTHIS.py             # 算法设置和主程序运行
-│   ├── SHAW_exe.py            # Running SHAW303.EXE
-│   ├── SHAWParRewrite.py      # Rewriting new parameters into Model confrigution
-│   ├── SHAWSimRead.py         # Reading Simulation Results by SHAW model's output files
-│   ├── SingleResultReader.py  # Reading Simulation Results by SHAW model's output files, Likes ET...
-│   ├── SoluteReader.py        # Reading Simulation Results by SHAW model's solution output files
-│   ├── TIMECOUNT.py           # 记录整个程序的运行时间
-│   └── WaterBalanceReader.py  # Reading Simulation Results by SHAW model's Water balance output files
-├── SHAWFinalResult/           
+│   ├── Clear.py                # Working-directory cleanup
+│   ├── Error_SHAW.py           # SHAW execution-error handling
+│   ├── MAINPROGRESS.py         # Main inversion workflow
+│   ├── P.py                    # Parameter mapping
+│   ├── RUNTHIS.py              # User configuration and entry point
+│   ├── SHAW_exe.py             # SHAW303.EXE runner
+│   ├── SHAWParRewrite.py       # SHAW input-file rewriting
+│   ├── SHAWSimRead.py          # Standard SHAW output reader
+│   ├── SingleResultReader.py   # Reader for selected outputs, such as ET
+│   ├── SoluteReader.py         # Solute-output reader
+│   ├── TIMECOUNT.py            # Runtime tracking
+│   └── WaterBalanceReader.py   # Water-balance output reader
+├── SHAWFinalResult/
 │   ├── __init__.py
 │   ├── Distribution.py
 │   ├── PlotIterationPar.py
 │   ├── PlotResult.py
 │   ├── Quantile.py
 │   └── ReadFinal.py
-├── TEST_SHAW/                # Model and its output files
-│   ├── Ensemble/             # csv files of different results, like updated parameters and varibles
-│   │   ├── ensemble_1_X_K_f_moi.csv # 同化变量（液态水含量）的结果，每列代表一个样本
-│   │   ├── ensemble_1_X_K_f_temp.csv # 参考变量（温度）的结果，每列代表一个样本
-│   │   ... 
-│   │   ├── Quantile_moi.csv # 同化变量（液态水含量）95%后验区间的结果
-│   │   └── Quantile_moi.csv # 参考变量（土壤温度）95%后验区间的结果
-│   │
-│   ├── Figures               # Visualization of different results
-│   │   ├── conbined_results_k.png # 所有样本的的评估指标（仅供初步判断）
-│   │   ├── ensemble_1_X_K_f_moi.png #同化变量（液态水含量）95%后验区间的结果 
-│   │   ... 
-│   │   ├── ILUES-Site_Params.png # 地表参数的迭代过程
-│   │   └── joint_distribution_k.png # ESMDA算法后验参数的joint distribution
-│   │
-│   └── Model                 # Configuration files of SHAW model(Don't change the name of these files but content)
-├── 
+├── TEST_SHAW/
+│   ├── Ensemble/               # Ensemble states, parameters, and summaries
+│   ├── Figures/                # Diagnostic and publication-oriented figures
+│   └── Model/                  # SHAW inputs and working files
 ├── requirements.txt
-├── README.md                  # This file
-└── LICENSE                    # License file
-```
+├── README.md
+└── LICENSE
 
----
+Do not rename SHAW input or output files unless the corresponding paths and readers are updated. Their contents should be adapted to the study site and experiment.
 
-## ⚖️ Copyright & Attribution
+Citation
 
-### Important Copyright Notice
+If this repository contributes to a publication, cite both the framework and the original SHAW, ESMDA, and/or ILUES papers relevant to the analysis.
 
-This repository contains **original code developed by the author** for the integration, visualization, and evaluation components. However, the following third-party components are **NOT** the intellectual property of the author and are subject to their respective copyrights:
+Suggested citation for this repository:
 
-#### 1. SHAW Model (Simultaneous Heat and Water)
-- **Copyright Holder**: United States Department of Agriculture (USDA), Agricultural Research Service (ARS)
-- **Original Developer**: Dr. Gerald N. Flerchinger, USDA-ARS Northwest Watershed Research Center, Boise, Idaho
-- **Original Publication**: Flerchinger, G.N. and Saxton, K.E. (1989). "Simultaneous heat and water model of a freezing snow-residue-soil system I. Theory and development." *Transactions of the ASAE*, 32(2), 565-571.
-- **Official Source**: https://www.ars.usda.gov/pacific-west-area/boise-id/northwest-watershed-research-center/docs/shaw-model/
-- **Download**: ftp://ftp.nwrc.ars.usda.gov/public/ShawModel/
-- **Status**: Public domain (U.S. Government work); users must obtain the model directly from USDA-ARS
+@software{wang_shaw_esmda_ilues_2026,
+  author  = {Wang, Xueke},
+  title   = {SHAW--ESMDA--ILUES Parameter Inversion Framework},
+  year    = {2026},
+  url     = {https://github.com/WangXk6666/SHAW-ESMDA-ILUES-inversion-framework}
+}
 
-#### 2. ESMDA Algorithm (Ensemble Smoother with Multiple Data Assimilation)
-- **Copyright Holder**: Original authors
-- **Original Developers**: Alexandre A. Emerick and Albert C. Reynolds, The University of Tulsa, Petroleum Reservoir Exploitation Projects
-- **Original Publication**: Emerick, A.A. and Reynolds, A.C. (2013). "Ensemble smoother with multiple data assimilation." *Computers & Geosciences*, 55, 3-15. DOI: 10.1016/j.cageo.2012.03.011
-- **Reference**: Emerick, A.A. and Reynolds, A.C. (2012). "History matching time-lapse seismic data using the ensemble Kalman smoother with multiple data assimilation." *Computational Geosciences*, 16(3), 639-659. DOI: 10.1007/s10596-012-9275-5
-- **Note**: The ESMDA algorithm implementation in this repository is an independent Python re-implementation based on the published mathematical formulations. The original algorithm and its theoretical foundation remain the intellectual property of Emerick and Reynolds.
+For reproducible citation, create a tagged release and replace the repository URL above with the release DOI if the release is archived through Zenodo or another repository.
 
-#### 3. ILUES Algorithm (Iterative Local Updating Ensemble Smoother)
-- **Copyright Holder**: Dr. Jiangjiang Zhang and co-authors
-- **Original Developer**: Dr. Jiangjiang Zhang (张江江), Professor, Hohai University (河海大学), Yangtze Institute for Conservation and Development, Nanjing, China
-- **Affiliation at Time of Publication**: College of Environmental and Resource Sciences, Zhejiang University; currently at Hohai University
-- **Original Publication**: Zhang, J., Lin, G., Li, W., Zeng, L., and Wu, L. (2018). "An iterative local updating ensemble smoother for estimation and uncertainty assessment of hydrologic model parameters with multimodal distributions." *Water Resources Research*, 54(3), 1716-1733. DOI: 10.1002/2017WR021296
-- **Preprint**: arXiv:1611.04702 [stat.CO] (2016)
-- **Contact**: zhangjiangjiang@hhu.edu.cn
-- **Note**: The ILUES algorithm implementation in this repository is an independent Python re-implementation based on the published mathematical formulations. The original algorithm and its theoretical foundation remain the intellectual property of Dr. Jiangjiang Zhang and co-authors.
+Third-Party Software and Attribution
 
-### Author's Contribution
-- **Integration Framework**: Coupling SHAW model with ESMDA/ILUES algorithms
-- **Visualization Tools**: Joint distribution plots, iteration trajectory plots, evaluation plots, interactive charts
-- **Evaluation Metrics**: Comprehensive statistical metrics computation
-- **Workflow Automation**: End-to-end parameter inversion pipeline
-- **Documentation**: User guides and examples
+Component
 
-### Usage Requirements
-By using this software, you agree to:
-1. **Cite the original authors** of SHAW, ESMDA, and ILUES in any publication or presentation resulting from the use of this framework.
-2. **Obtain the SHAW model** directly from the official USDA-ARS source.
-3. **Acknowledge** this framework (Wang Xueke, Chang'an University) if the integration code is used.
-4. **Not claim ownership** or register copyrights over the SHAW model, ESMDA algorithm, or ILUES algorithm.
+Original contribution
 
----
+Copyright and license treatment
 
-## 📜 License
+SHAW
 
-This project is licensed under the **MIT License** for the original code written by the author. See [LICENSE](LICENSE) for details.
+Developed by Gerald N. Flerchinger and collaborators at USDA-ARS
 
-**However**, the following restrictions apply:
+The SHAW program, documentation, and associated files remain the work of USDA-ARS and their original authors. They are not covered by this repository's MIT License. Obtain SHAW from the official SHAW page and retain all notices and terms supplied with it.
 
-- The **SHAW model** is a U.S. Government work and is in the public domain, but must be obtained from the official USDA-ARS source.
-- The **ESMDA algorithm** and **ILUES algorithm** are subject to the copyrights of their respective original authors.
-- This framework **does NOT include** the SHAW model source code, ESMDA original code, or ILUES original code.
-- Users must comply with the licensing terms of all third-party dependencies (numpy, scipy, pandas, matplotlib, pyecharts, tqdm).
+ESMDA
 
-### Permitted Use
-- ✅ Academic research and educational purposes
-- ✅ Personal learning and experimentation
-- ✅ Citation and reference in academic publications
+Method introduced by Emerick and Reynolds (2013)
 
-### Prohibited Use
-- ❌ Commercial use without proper attribution
-- ❌ Registration of copyright or patent claims over the SHAW model, ESMDA, or ILUES
-- ❌ Redistribution of the SHAW model without USDA-ARS permission
-- ❌ Claiming authorship of the original algorithms or model
+The ESMDA method and any third-party implementation included or adapted in this project remain attributable to their original authors. The original copyright and license notices must be retained, and the ESMDA code is excluded from this repository's MIT License unless its own license explicitly states otherwise.
 
----
+ILUES
 
-## ⚠️ Disclaimer
+Method introduced by Zhang et al. (2018)
 
-THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+The ILUES method and any third-party implementation included or adapted in this project remain attributable to Zhang and co-authors. The original copyright and license notices must be retained, and the ILUES code is excluded from this repository's MIT License unless its own license explicitly states otherwise.
 
-The author makes no representations about the suitability of this software for any purpose. The accuracy of inversion results depends on the quality of input data, model configuration, and parameter settings. Users are responsible for validating results before using them for decision-making.
+These attributions do not imply endorsement by the original authors. Academic citation acknowledges the underlying research, whereas redistribution of executable files or source code is governed by the applicable software license or explicit permission. When no redistribution license has been provided, users must obtain the component from its official source or secure permission from the copyright holder.
 
----
+License
 
-## 📬 Contact
+Only the original integration and extension code written by Xueke Wang is released under the MIT License. This includes author-owned workflow control, SHAW coupling, parameter mapping, input/output processing, result evaluation, and visualization code. The MIT License permits academic and commercial use, modification, and redistribution of this author-owned code, provided that its copyright and license notice are retained.
 
-- **Author**: Wang Xueke (汪学科)
-- **Institution**: Chang'an University (长安大学)
-- **Email**: WangXk6666@outlook.com
-- **GitHub**: [@WangXk6666](https://github.com/WangXk6666)
+The MIT License does not apply to the SHAW model, its executable or documentation, or third-party ESMDA and ILUES implementations. Those components retain their original copyright, license, and permission requirements. Any corresponding source-code headers and license files must remain intact when redistribution is permitted.
 
-For questions regarding:
-- **SHAW model**: Contact Dr. Gerald Flerchinger (gerald.flerchinger@usda.gov) or visit [USDA-ARS SHAW Model Page](https://www.ars.usda.gov/pacific-west-area/boise-id/northwest-watershed-research-center/docs/shaw-model/)
-- **ESMDA algorithm**: Refer to publications by Emerick & Reynolds (2013)
-- **ILUES algorithm**: Contact Dr. Jiangjiang Zhang (zhangjiangjiang@hhu.edu.cn)
+Disclaimer
 
----
+This research software is provided "as is", without warranty of any kind. The accuracy of an inversion depends on the model configuration, forcing and observation data, prior parameter distributions, observation-error model, ensemble size, and algorithm settings. Users are responsible for testing convergence, checking mass and energy balances where relevant, and validating results before scientific or operational use.
 
-## 📚 References
+Contact
 
-### SHAW Model
-1. Flerchinger, G.N. and Saxton, K.E. (1989). "Simultaneous heat and water model of a freezing snow-residue-soil system I. Theory and development." *Transactions of the ASAE*, 32(2), 565-571.
-2. Flerchinger, G.N. and Saxton, K.E. (1989). "Simultaneous heat and water model of a freezing snow-residue-soil system II. Field verification." *Transactions of the ASAE*, 32(2), 573-578.
-3. Flerchinger, G.N. (2000). "The Simultaneous Heat and Water (SHAW) Model: Technical Documentation." Technical Report NWRC 2000-09, USDA-ARS Northwest Watershed Research Center, Boise, Idaho.
-4. Flerchinger, G.N., Reba, M.L., and Links, T.E. (2012). "Simultaneous heat and water (SHAW) model: model use, calibration, and validation." *Transactions of the ASABE*, 55(4), 1395-1411.
-5. **Official Website**: https://www.ars.usda.gov/pacific-west-area/boise-id/northwest-watershed-research-center/docs/shaw-model/
+Xueke Wang: WangXk6666@outlook.com
 
-### ESMDA Algorithm
-6. Emerick, A.A. and Reynolds, A.C. (2013). "Ensemble smoother with multiple data assimilation." *Computers & Geosciences*, 55, 3-15. DOI: 10.1016/j.cageo.2012.03.011
-7. Emerick, A.A. and Reynolds, A.C. (2012). "History matching time-lapse seismic data using the ensemble Kalman smoother with multiple data assimilation." *Computational Geosciences*, 16(3), 639-659. DOI: 10.1007/s10596-012-9275-5
+GitHub: @WangXk6666
 
-### ILUES Algorithm
-8. Zhang, J., Lin, G., Li, W., Zeng, L., and Wu, L. (2018). "An iterative local updating ensemble smoother for estimation and uncertainty assessment of hydrologic model parameters with multimodal distributions." *Water Resources Research*, 54(3), 1716-1733. DOI: 10.1002/2017WR021296
-9. Zhang, J., et al. (2016). "An iterative local-updating ensemble smoother for high-dimensional inverse modeling with multimodal distributions." arXiv:1611.04702 [stat.CO].
+SHAW support: ARS-BOISE-DATA@usda.gov
 
-### This Framework
-10. Wang, X. (2026). "SHAW-ESMDA-ILUES Inversion Framework." GitHub Repository. https://github.com/WangXk6666/SHAW-ESMDA-ILUES-inversion-framework
+Please use GitHub Issues for reproducible bug reports. Include the operating system, Python version, relevant settings, and the complete error traceback, but do not upload confidential data.
 
----
+References
 
-<div align="center">
+Flerchinger, G. N., & Saxton, K. E. (1989). Simultaneous heat and water model of a freezing snow-residue-soil system. I. Theory and development. Transactions of the ASAE, 32(2), 565–571.
 
-**⭐ If you find this framework helpful, please consider giving it a star!**
+Flerchinger, G. N., & Saxton, K. E. (1989). Simultaneous heat and water model of a freezing snow-residue-soil system. II. Field verification. Transactions of the ASAE, 32(2), 573–578.
 
-*Last updated: 2026-06-16*
+Flerchinger, G. N. (2000). The Simultaneous Heat and Water (SHAW) Model: Technical Documentation (Technical Report NWRC 2000-09). USDA Agricultural Research Service, Northwest Watershed Research Center.
 
-</div>
+Flerchinger, G. N., Caldwell, T. G., Cho, J., & Hardegree, S. P. (2012). Simultaneous Heat and Water Model: Model use, calibration, and validation. Transactions of the ASABE, 55(4), 1395–1411. https://doi.org/10.13031/2013.42250
+
+Emerick, A. A., & Reynolds, A. C. (2013). Ensemble smoother with multiple data assimilation. Computers & Geosciences, 55, 3–15. https://doi.org/10.1016/j.cageo.2012.03.011
+
+Emerick, A. A., & Reynolds, A. C. (2012). History matching time-lapse seismic data using the ensemble Kalman smoother with multiple data assimilation. Computational Geosciences, 16(3), 639–659. https://doi.org/10.1007/s10596-012-9275-5
+
+Zhang, J., Lin, G., Li, W., Wu, L., & Zeng, L. (2018). An iterative local updating ensemble smoother for estimation and uncertainty assessment of hydrologic model parameters with multimodal distributions. Water Resources Research, 54(3), 1716–1733. https://doi.org/10.1002/2017WR020906
