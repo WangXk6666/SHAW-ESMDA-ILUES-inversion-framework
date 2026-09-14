@@ -14,7 +14,6 @@
 - [Overview](#overview)
 - [Features](#features)
 - [Dependencies](#dependencies)
-- [Installation](#installation)
 - [Usage](#usage)
 - [Repository Structure](#repository-structure)
 - [Copyright & Attribution](#copyright--attribution)
@@ -46,14 +45,13 @@ The framework is designed for hydrological and land-surface modeling application
 - **SHAW Model Interface**: Seamless coupling with the SHAW model for forward simulations
 - **ESMDA Integration**: Multiple data assimilation with adaptive inflation factors
 - **ILUES Integration**: Local ensemble updating for multimodal parameter distributions
-- **Ensemble Management**: Configurable ensemble size (default: Ne = 500)
+- **Ensemble Management**: Configurable ensemble size
 
 ### Visualization & Post-processing
 - 📊 **Joint Distribution Plots**: Parameter posterior joint probability distributions
 - 📈 **Iteration Trajectory Plots**: Parameter convergence over assimilation iterations
-- 🎯 **Evaluation Metrics**: RMSE, NSE, KGE, R², Bias, and more
+- 🎯 **Evaluation Metrics**: RMSE, NSE, R²
 - 🗺️ **Spatial/Temporal Visualization**: Time-series and profile plotting capabilities
-- 🌐 **Interactive Charts**: Web-based interactive visualizations via PyEcharts
 
 ### Additional Tools
 - Automated result aggregation and summary
@@ -76,110 +74,70 @@ This project requires the following Python packages:
 | `pyecharts` | ≥1.9 | Interactive web-based visualizations |
 | `tqdm` | ≥4.62 | Progress bars for long-running processes |
 
-### Install all dependencies
-
-```bash
-pip install numpy scipy pandas matplotlib pyecharts tqdm
-```
-
-Or using the provided `requirements.txt`:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 🚀 Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/WangXk6666/SHAW-ESMDA-ILUES-inversion-framework.git
-   cd SHAW-ESMDA-ILUES-inversion-framework
-   ```
-
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Prepare SHAW model executable**
-   - Ensure the SHAW model executable is available in your system path or specify its location in the configuration file.
-   - The SHAW model must be obtained separately from the official USDA-ARS source (see [References](#references)).
-
----
 
 ## 📝 Usage
 
-### Quick Start
+1. **下载压缩包*
+   下载压缩包后，保存到本地的项目文件之后进行解压
 
-```python
-from src.inversion import SHAWInversion
+2. **配置环境**
+使用Python的IDE打开项目文件后，按照Requirements.txt配置环境
 
-# Initialize the inversion framework
-inversion = SHAWInversion(
-    model_path="path/to/shaw.exe",
-    ensemble_size=500,
-    algorithm="ESMDA",  # or "ILUES"
-    observation_file="data/observations.csv",
-    param_bounds="config/param_bounds.json"
-)
-
-# Run the inversion
-results = inversion.run()
-
-# Generate visualizations
-from src.visualization import plot_joint_distribution, plot_iteration_trajectory
-
-plot_joint_distribution(results, save_path="figures/joint_dist.png")
-plot_iteration_trajectory(results, save_path="figures/trajectory.png")
-
-# Compute evaluation metrics
-from src.evaluation import compute_metrics
-metrics = compute_metrics(results.predicted, results.observed)
-print(metrics)
-```
-
-### Configuration
-
-Edit `config/inversion_config.yaml` to customize:
-- Ensemble size (Ne)
-- Number of assimilation iterations
-- Inflation factors (for ESMDA)
-- Local ensemble size (for ILUES)
-- Parameter bounds and prior distributions
-- Observation error covariance
-
+3. **程序运行**
+   打开SHAW/RUNTHIS.py设置相应的算法配置后即可运行，为了节省时间，本程序中仅设置集合大小为20，迭代次数为1次来检测程序
 ---
+
+
 
 ## 📁 Repository Structure
 
 ```
 SHAW-ESMDA-ILUES-inversion-framework/
-├── src/
-│   ├── inversion/              # Core inversion algorithms
-│   │   ├── esmda.py           # ESMDA implementation
-│   │   ├── ilues.py           # ILUES implementation
-│   │   └── shaw_interface.py  # SHAW model wrapper
-│   ├── visualization/         # Plotting and visualization
-│   │   ├── joint_distribution.py
-│   │   ├── iteration_trajectory.py
-│   │   ├── evaluation_plots.py
-│   │   └── interactive_charts.py
-│   ├── evaluation/            # Metrics computation
-│   │   └── metrics.py
-│   └── utils/                 # Utility functions
-│       ├── io.py
-│       └── statistics.py
-├── config/                    # Configuration files
-│   ├── inversion_config.yaml
-│   └── param_bounds.json
-├── data/                      # Sample data (not included)
-├── figures/                   # Output figures
-├── examples/                  # Usage examples
-│   ├── example_esmda.py
-│   └── example_ilues.py
-├── tests/                     # Unit tests
+├── General/
+│   ├── __init__.py             
+│   ├── CriticalError.py       # ESMDA implementation
+│   ├── draw_prior_sample.py   # Default is reading the prior sample.csv in Model direction
+│   ├── ES_K_update.py         # ESMDA implementation
+│   ├── local_update_for.py    # ILUES implementation
+│   └── obs_read.py            # Reading observation data in Model direction
+├── SHAW/
+│   ├── __init__.py
+│   ├── Clear.py               # Clearing work direction
+│   ├── Error_SHAW.py          # Handling the error in Model execution 
+│   ├── MAINPROGRESS.py        # Main workflow
+│   ├── P.py                   # 参数映射
+│   ├── RUNTHIS.py             # 算法设置和主程序运行
+│   ├── SHAW_exe.py            # Running SHAW303.EXE
+│   ├── SHAWParRewrite.py      # Rewriting new parameters into Model confrigution
+│   ├── SHAWSimRead.py         # Reading Simulation Results by SHAW model's output files
+│   ├── SingleResultReader.py  # Reading Simulation Results by SHAW model's output files, Likes ET...
+│   ├── SoluteReader.py        # Reading Simulation Results by SHAW model's solution output files
+│   ├── TIMECOUNT.py           # 记录整个程序的运行时间
+│   └── WaterBalanceReader.py  # Reading Simulation Results by SHAW model's Water balance output files
+├── SHAWFinalResult/           
+│   ├── __init__.py
+│   ├── Distribution.py
+│   ├── PlotIterationPar.py
+│   ├── PlotResult.py
+│   ├── Quantile.py
+│   └── ReadFinal.py
+├── TEST_SHAW/                # Model and its output files
+│   ├── Ensemble/             # csv files of different results, like updated parameters and varibles
+│   │   ├── ensemble_1_X_K_f_moi.csv # 同化变量（液态水含量）的结果，每列代表一个样本
+│   │   ├── ensemble_1_X_K_f_temp.csv # 参考变量（温度）的结果，每列代表一个样本
+│   │   ... 
+│   │   ├── Quantile_moi.csv # 同化变量（液态水含量）95%后验区间的结果
+│   │   └── Quantile_moi.csv # 参考变量（土壤温度）95%后验区间的结果
+│   │
+│   ├── Figures               # Visualization of different results
+│   │   ├── conbined_results_k.png # 所有样本的的评估指标（仅供初步判断）
+│   │   ├── ensemble_1_X_K_f_moi.png #同化变量（液态水含量）95%后验区间的结果 
+│   │   ... 
+│   │   ├── ILUES-Site_Params.png # 地表参数的迭代过程
+│   │   └── joint_distribution_k.png # ESMDA算法后验参数的joint distribution
+│   │
+│   └── Model                 # Configuration files of SHAW model(Don't change the name of these files but content)
+├── 
 ├── requirements.txt
 ├── README.md                  # This file
 └── LICENSE                    # License file
@@ -274,7 +232,7 @@ The author makes no representations about the suitability of this software for a
 
 For questions regarding:
 - **SHAW model**: Contact Dr. Gerald Flerchinger (gerald.flerchinger@usda.gov) or visit [USDA-ARS SHAW Model Page](https://www.ars.usda.gov/pacific-west-area/boise-id/northwest-watershed-research-center/docs/shaw-model/)
-- **ESMDA algorithm**: Refer to publications by Emerick & Reynolds
+- **ESMDA algorithm**: Refer to publications by Emerick & Reynolds (2013)
 - **ILUES algorithm**: Contact Dr. Jiangjiang Zhang (zhangjiangjiang@hhu.edu.cn)
 
 ---
