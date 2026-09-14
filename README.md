@@ -99,9 +99,7 @@ py -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-### 3. Obtain the SHAW Model
-
-Download SHAW 3.03 from the [official USDA-ARS SHAW website](https://www.ars.usda.gov/pacific-west-area/boise-id/northwest-watershed-research-center/docs/shaw-model/).
+### 3. SHAW Model
 
 Place `SHAW303.EXE` and the required SHAW input files in the location expected by `SHAW/SHAW_exe.py`. SHAW is not installed through `pip` and is not covered by this repository's MIT License.
 
@@ -116,12 +114,9 @@ Prepare the following files under `TEST_SHAW/Model/`:
 
 Open `SHAW/RUNTHIS.py` and check:
 
-- Algorithm selection: ESMDA or ILUES.
 - Ensemble size and number of assimilation iterations.
 - Inflation factors and observation-error settings.
-- Parameter bounds and mappings.
-- Observation variables, depths, times, and units.
-- Input, executable, and output paths.
+- Others
 
 ### 5. Run the Framework
 
